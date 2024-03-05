@@ -11,20 +11,57 @@ public class Magacin implements IMagacin{
 
 	@Override
 	public void dodajUMagacin(Artikal artikal) {
-		// TODO Auto-generated method stub
+		if(artikal==null)
+			new NullPointerException("Artikal ne sme biti null");
+		
+		if(artikal.getSifra()<=0)
+			throw new IllegalArgumentException("Sifra artikla mora biti pozitivan broj");
+		
+		if(!listaArtikla.contains(artikal))
+			listaArtikla.add(artikal);
+		else
+		{
+			for(Artikal a:listaArtikla) {
+				if(a.equals(artikal))
+					a.setKolicina(a.getKolicina()+artikal.getKolicina());
+				return;
+			}
+		}
+		
 		
 	}
 
 	@Override
 	public void izbaciIzMagacina(Artikal artikal) {
-		// TODO Auto-generated method stub
+		if(artikal==null)
+			new NullPointerException("Artikal ne sme biti null");
+		
+		if(artikal.getSifra()<=0)
+			throw new IllegalArgumentException("Sifra artikla mora biti pozitivan broj");
+		
+		for(Artikal a:listaArtikla) {
+			if(a.equals(artikal)) {
+				if(a.getKolicina()-artikal.getKolicina()<=0)
+					throw new IllegalArgumentException("Ne moze kolicina da spadne na negativan broj");
+				
+				a.setKolicina(a.getKolicina()-artikal.getKolicina());
+			}
+				
+				
+		}
 		
 	}
 
 	@Override
 	public String VratiPodatkeOArtiklu(int sifra) {
-		// TODO Auto-generated method stub
-		return null;
+		if(sifra<=0)
+			throw new IllegalArgumentException("Sifra mora biti pozitivan broj");
+		for(Artikal a:listaArtikla) {
+			if(a.getSifra()==sifra) {
+				return a.toString();
+			}
+		}
+		throw new IllegalArgumentException("Ne postoji nijedan artikal");
 	}	
 	
 }
