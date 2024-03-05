@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public abstract class Artikal {
 
 	private int sifra;
@@ -49,6 +51,30 @@ public abstract class Artikal {
 	public void setKolicina(int kolicina) {
 		this.kolicina = kolicina;
 	}
+
+	@Override
+	public String toString() {
+		return "Artikal [sifra=" + sifra + ", naziv=" + naziv + ", opis=" + opis + ", kolicina=" + kolicina + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(kolicina, sifra);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Artikal other = (Artikal) obj;
+		return kolicina == other.kolicina && sifra == other.sifra;
+	}
+	
+	
 	
 	
 	
