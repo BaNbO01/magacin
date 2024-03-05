@@ -11,7 +11,23 @@ public class Magacin implements IMagacin{
 
 	@Override
 	public void dodajUMagacin(Artikal artikal) {
-		// TODO Auto-generated method stub
+		if(artikal==null)
+			throw new NullPointerException("Artikal ne sme biti null");
+		
+		if(artikal.getKolicina()<=0)
+			throw new IllegalArgumentException("Artikal ne moze imati negativnu kolicinu");
+		
+		if(listaArtikla.contains(artikal))
+		{
+			for(Artikal art:listaArtikla) {
+				if(art.equals(artikal)) {
+					art.setKolicina(art.getKolicina()+artikal.getKolicina());
+				}
+			}
+		}
+		else {
+			listaArtikla.add(artikal);
+		}
 		
 	}
 
